@@ -456,3 +456,286 @@ git push -u origin master                 # Or 'git push -u origin main' dependi
 ```
 
 You have now successfully pushed changes to GitHub and can continue making updates as needed.
+
+
+
+# How to Undo and Unstage Changes in Git
+
+## Understanding Git Reset
+
+To undo or unstage a file that has been added (including deleted files), you can use the `git reset` command. This guide explains how to manage these scenarios effectively.
+
+## Scenario: Undoing a Staged Deletion
+
+### Initial Situation
+You've deleted `testing.txt` and ran `git add -A`, which staged the deletion. Now you want to unstage the deletion before committing.
+
+### Step-by-Step Guide
+
+1. **Unstage the file** using `git reset`:
+   ```bash
+   git reset HEAD testing.txt
+   ```
+
+2. **Check the status** to confirm the unstaging:
+   ```bash
+   git status
+   ```
+
+   Expected output:
+   ```
+   On branch master
+   Your branch is up to date with 'origin/master'.
+   
+   Changes not staged for commit:
+     (use "git add/rm <file>..." to update what will be committed)
+     (use "git restore <file>..." to discard changes in working directory)
+         deleted: testing.txt
+   
+   no changes added to commit (use "git add" and/or "git commit -a")
+   ```
+
+## Understanding the Output
+
+After running these commands, `testing.txt` will be:
+- Still marked as deleted in your working directory
+- No longer staged for commit
+- Available for further actions (restore or re-stage)
+
+## Restoring a Deleted File
+
+If you want to restore the file to its original state (undo the deletion completely):
+```bash
+git restore testing.txt
+```
+
+## Complete Example with Terminal Output
+
+Here's a real terminal session showing the complete workflow:
+
+```bash
+# Initial status after staging deletion
+$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        deleted:    testing.txt
+
+# Unstaging the deletion
+$ git reset HEAD testing.txt
+Unstaged changes after reset:
+D testing.txt
+
+# Checking status after unstaging
+$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        deleted:    testing.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+## Quick Reference
+
+1. **Unstage a file:**
+   ```bash
+   git reset HEAD <filename>
+   ```
+
+2. **Restore a deleted file:**
+   ```bash
+   git restore <filename>
+   ```
+
+Remember that `git reset HEAD <file>` only unstages the file - it doesn't undo the actual deletion in your working directory. To completely undo the deletion, you'll need to use the `git restore` command as shown above.
+
+## Git can help to bring back a deleted file using git checkout command
+
+The git checkout command can be used to restore a deleted file from the last commit.
+
+To get the deleted file back (restore it to the state in the last commit), run:
+```bash
+git checkout -- testing.txt
+```
+
+git checkout -- <file>: This command restores the file from the last commit, undoing any changes (including deletions) in the working directory.
+
+
+#### How `git checkout -- <file>` Restores a Deleted File
+
+When you use `git checkout -- <file>` to bring back a deleted file, Git restores the file from the **last committed version** of the file in the repository.
+
+### How it works:
+
+1. **File Deleted Locally**:  
+   If you delete a file in your working directory, Git recognizes that the file has been removed, but it has not yet been committed as deleted.
+
+2. **Git Checkout Command**:  
+   When you run `git checkout -- <file>`, Git looks at the most recent commit where that file existed and restores it from that commit.
+
+3. **Restoration**:  
+   The deleted file is restored to your working directory as it was in the last commit, undoing the deletion locally.
+
+
+
+# Understanding Git Origins and Using git remote -v
+
+When doing your first commit, you use the following command to add a remote repository:
+
+```bash
+git remote add origin git@github.com:JapneetSinghh/Git-Essentials-.git
+```
+
+## Checking the Origin
+
+If you want to see what origin you're using, you can run:
+
+```bash
+git remote -v
+```
+
+### Example Output:
+
+```bash
+(base) japneetsingh@Japneets-MacBook-Pro Git Essentials Udemy % git remote -v
+origin git@github.com:JapneetSinghh/Git-Essentials-.git (fetch)
+origin git@github.com:JapneetSinghh/Git-Essentials-.git (push)
+(base) japneetsingh@Japneets-MacBook-Pro Git Essentials Udemy %
+```
+
+You'll see two origins:
+* **fetch**: Used when downloading updates or files from GitHub
+* **push**: Used when pushing updates from your local machine to GitHub
+
+## SSH vs HTTPS
+
+### SSH
+If you're using SSH, the origin will look like this:
+
+```bash
+git@github.com:JapneetSinghh/Git-Essentials-.git
+```
+
+### HTTPS
+If you're using HTTPS, the origin will look like this:
+
+```bash
+https://github.com/JapneetSinghh/Git-Essentials-.git
+```
+
+
+
+
+# How to Create a New Branch in Git
+
+## 1. Check Existing Branches
+
+To see all the branches in your repository, use the `git branch` command. The current branch is marked with an asterisk (*) and displayed in green.
+
+```bash
+git branch
+```
+
+**Output Example**:
+```bash
+* master
+```
+
+## 2. Create and Switch to a New Branch
+
+To create a new branch and switch to it, use the `git checkout -b <new-branch-name>` command. This will create the branch and make it the active one.
+
+```bash
+git checkout -b new-branch
+```
+
+**Output Example**:
+```bash
+Switched to a new branch 'new-branch'
+```
+
+Now, run `git branch` again to see both branches:
+
+```bash
+git branch
+```
+
+**Output Example**:
+```bash
+  master
+* new-branch
+```
+
+## 3. Switch Between Branches
+
+To switch back to the original branch (e.g., `master`), use the `git checkout <branch-name>` command.
+
+```bash
+git checkout master
+```
+
+**Output Example**:
+```bash
+M Github_Udemy.md
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+```
+
+After switching, run `git branch` to verify your current branch:
+
+```bash
+git branch
+```
+
+**Output Example**:
+```bash
+* master
+  new-branch
+```
+
+## Why Do We Need a New Branch?
+
+Creating a new branch allows you to work on a feature or bug fix without affecting the main codebase (`master` or `main`). It provides isolation for changes, which can be safely tested and reviewed.
+
+## What Can Be Done in a Branch?
+
+In a branch, you can:
+* Add new features
+* Fix bugs
+* Experiment with code changes
+
+Once the work is complete and reviewed, the branch can be merged back into the main branch.
+
+## What Happens to Files and Data When Merging Two Branches?
+
+When you merge two branches in Git, the changes from the source branch are combined into the target branch.
+
+### Key Points:
+
+1. **New Files**: If the source branch has new files, they will be added to the target branch
+2. **Modified Files**: If a file was modified in the source branch, its changes will be applied to the target branch
+3. **Deleted Files**: If a file was deleted in the source branch, it will also be deleted in the target branch after merging
+4. **Merge Conflicts**: If the same file was modified differently in both branches, Git will prompt you to resolve conflicts manually before completing the merge
+
+### Example:
+
+If `new-branch` has updates and we merge it into `master`:
+
+```bash
+git checkout master
+git merge new-branch
+```
+
+Now, all changes from `feature-branch` are included in `master`, and `new-branch` can be deleted if no longer needed.
+
+### How Do Multiple Branches Help in Team Projects?
+
+Multiple branches in Git allow team members to work on different features, bug fixes, or experiments simultaneously without affecting the main codebase. Each developer can create a separate branch for their task, ensuring that changes remain isolated and do not disrupt others. Once a feature is complete and tested, it can be merged into the main branch (e.g., `main` or `develop`), maintaining a clean and organized workflow. This approach enables parallel development, reduces conflicts, improves code review processes, and ensures a stable production environment.
+
+
