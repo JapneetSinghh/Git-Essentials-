@@ -1,0 +1,7 @@
+Updating the testing.txt from Gtihub.com
+Commiting it 
+
+and then git pull -u origin master 
+to have the changes pulled from github to my account 
+
+
