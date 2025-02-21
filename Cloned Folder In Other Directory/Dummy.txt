@@ -1,0 +1,1 @@
+Some dummy file in a cloned folder in new-cloned-branch
