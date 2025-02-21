@@ -5,3 +5,17 @@ and then git pull -u origin master
 to have the changes pulled from github to my account 
 
 
+
+
+
+TESTING CONFLICTS 
+
+Making changes in github repo though guthub.com reposiotry. 
+
+Then I will try to push files from my local computer without pulling this change made. 
+I will get error, my push request will be rejected
+
+So I will have to pull the changes first 
+git pull origin master
+
+
