@@ -952,3 +952,129 @@ After rebasing, your local repository is now updated with the latest remote chan
 ```bash
 git push origin master
 ```
+
+
+
+# Checking If Your Local Repository Is Behind the Remote Repository
+
+When working in a team, it's essential to ensure your local repository is **up to date** with the remote repository on GitHub. Sometimes, teammates may push new commits, making your local branch outdated. You can check this using **Git log and Git fetch**.
+
+## 1. Check Your Current Position in Git History
+
+Use the following command to check where your `HEAD` (current branch) is in comparison to the remote repository:
+```bash
+git log --oneline --decorate --all
+```
+
+This command will display:
+* The **commit hash** for each commit
+* **Branches** (`HEAD`, `master`, `origin/master`, etc.)
+* The **current commit HEAD is pointing to**
+
+### Example Output (Up-to-date HEAD)
+```bash
+60e1e1f (HEAD -> master, origin/master) Resolved Git Conflicts
+ac189ab Trying to make a conflict
+7a39af2 Learning how to resolve some basic conflicts
+7eafe59 Create New File Added On Github, trying to cause a conflict
+95b248d Update testing.txt for learning how to pull the changes locally
+255c4b4 Cloned folder and new-cloned-branch, testing merge
+5644804 (origin/new-branch, new-branch) New Branch File
+2e0c154 Created new branch
+b63df16 Added testing file to learn unstaging files
+d3dedf9 Second Commit
+5dbd610 first commit
+```
+
+Here, `HEAD` is **up-to-date** with `origin/master`, meaning your local branch matches the latest remote changes.
+
+## 2. Fetch Remote Changes Without Merging
+
+To check if new commits have been added to the remote repository, run:
+```bash
+git fetch origin master
+```
+
+### What Does `git fetch` Do?
+* It downloads **new commits** from GitHub **without modifying** your local files
+* It updates the **remote tracking branches** (e.g., `origin/master`), but it does not merge them into your working branch
+
+After running `git fetch`, test the log again:
+```bash
+git log --oneline --graph --decorate --all
+```
+
+### Example Output (Local Branch Is Behind)
+```bash
+* b3d5194 (origin/master) New Commit by TEAM WHICH I DONT HAVE LOCALLY
+* 60e1e1f (HEAD -> master) Resolved Git Conflicts # CURRENT LOCAL CODE
+* ac189ab Trying to make a conflict
+* 7a39af2 Learning how to resolve some basic conflicts
+* 7eafe59 Create New File Added On Github, trying to cause a conflict
+* 95b248d Update testing.txt for learning how to pull the changes locally
+* 255c4b4 Cloned folder and new-cloned-branch, testing merge
+* 5644804 (origin/new-branch, new-branch) New Branch File
+* 2e0c154 Created new branch
+* b63df16 Added testing file to learn unstaging files
+* d3dedf9 Second Commit
+* 5dbd610 first commit
+```
+
+Pulling the changes to my current local repository. 
+
+```bash
+(base) japneetsingh@Japneets-MacBook-Pro Git Essentials Udemy % git pull origin master
+From github.com:JapneetSinghh/Git-Essentials-
+ * branch            master     -> FETCH_HEAD
+Updating 60e1e1f..b3d5194
+Fast-forward
+ gitLogCommandTest.txt | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+ create mode 100644 gitLogCommandTest.txt
+```
+Now my local repository is up to day
+
+```bash
+(base) japneetsingh@Japneets-MacBook-Pro Git Essentials Udemy % git log --oneline --graph --decorate --all
+* b3d5194 (HEAD -> master, origin/master) New Commit by TEAM WHICH I DONT HAVE LOCALLY   # BUT AFTER PULLING I HAVE IT IN MY LOCAL DIRECTORY
+* 60e1e1f Resolved Git Conflicts
+* ac189ab Trying to make a conflict
+* 7a39af2 Learning how to resolve some basic conflicts
+* 7eafe59 Create New File Added On Github, trying to cause a conflict
+* 95b248d Update testing.txt for learning how to pull the changes locally
+* 255c4b4 Cloned folder and new-cloned-branch, testing merge
+* 5644804 (origin/new-branch, new-branch) New Branch File
+* 2e0c154 Created new branch
+* b63df16 Added testing file to learn unstaging files
+* d3dedf9 Second Commit
+* 5dbd610 first commit
+(base) japneetsingh@Japneets-MacBook-Pro Git Essentials Udemy % 
+```
+
+
+### Understanding the Output:
+* **New commit** (`b3d5194`) is present in `origin/master` but not in `HEAD -> master`
+* Your **local** `master` branch is now behind the remote branch
+* You need to **pull the changes** to bring your local branch up to date
+
+## 3. Pull the Latest Changes to Update Your Local Code
+
+Once you have confirmed that your local branch is behind, pull the latest changes:
+```bash
+git pull origin master
+```
+
+This will **merge the new commits** from `origin/master` into your local `master` branch.
+
+If you want a **cleaner history**, use **rebase** instead:
+```bash
+git pull origin master --rebase
+```
+
+| Command | Purpose |
+|---------|----------|
+| `git log --oneline --decorate --all` | Check your position in Git history |
+| `git fetch origin master` | Fetch remote changes without modifying local files |
+| `git log --oneline --graph --decorate --all` | Check if your local branch is behind the remote branch |
+| `git pull origin master` | Merge the latest remote changes into your local branch |
+| `git pull origin master --rebase` | Rebase local commits on top of the latest remote changes |
