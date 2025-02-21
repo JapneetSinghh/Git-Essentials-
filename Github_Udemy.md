@@ -862,3 +862,93 @@ Fetch the latest changes from GitHub.
 Merge them into your local master branch.
 
 Update your local directory with the latest files and modifications.
+
+
+# Handling Push Rejections Due to Remote Changes
+
+## Scenario
+A teammate has added new files and committed changes to the `master` branch on GitHub.  
+You also made local changes and tried to push them, but your push was **rejected** because your local repository is outdated.
+
+## Why Does This Happen?
+Git prevents you from pushing because your local branch does not contain the latest changes from the remote repository. To resolve this, you need to **pull** the latest updates first.
+
+## Error: Push Rejected
+When you try to push, you might see the following error:
+
+```bash
+(base) japneetsingh@Japneets-MacBook-Pro Git Essentials Udemy % git push origin master
+To github.com:JapneetSinghh/Git-Essentials-.git
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'github.com:JapneetSinghh/Git-Essentials-.git'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+```
+
+This means your local `master` branch is **outdated** compared to the remote `master` branch on GitHub.
+
+## Step 1: Pull the Latest Changes
+To update your local repository with the latest changes from GitHub, run:
+
+```bash
+git pull origin master
+```
+
+However, sometimes this may result in another error:
+
+### Error: Divergent Branches
+You may get the following error when pulling:
+
+```bash
+(base) japneetsingh@Japneets-MacBook-Pro Git Essentials Udemy % git pull origin master
+From github.com:JapneetSinghh/Git-Essentials-
+ * branch master -> FETCH_HEAD
+ 7eafe59..7a39af2 master -> origin/master
+hint: You have divergent branches and need to specify how to reconcile them.
+hint: You can do so by running one of the following commands sometime before
+hint: your next pull:
+hint:
+hint: git config pull.rebase false # merge
+hint: git config pull.rebase true # rebase
+hint: git config pull.ff only # fast-forward only
+fatal: Need to specify how to reconcile divergent branches.
+```
+
+### Why Did I Get This Error?
+This happens because **your local branch and the remote branch have different commits that Git cannot automatically merge**. Git needs to know how you want to combine these changes.
+
+## Step 2: Use Rebase to Fix the Issue
+To resolve the divergence and apply your changes on top of the latest remote changes, use:
+
+```bash
+git pull origin master --rebase
+```
+
+**Example Output:**
+```bash
+From github.com:JapneetSinghh/Git-Essentials-
+ * branch master -> FETCH_HEAD
+Successfully rebased and updated refs/heads/master.
+```
+
+### What is Rebase?
+Rebasing moves your local changes **on top of the latest remote changes** instead of merging them. This results in a cleaner commit history.
+
+### Rebase vs Merge
+
+| Method | What It Does | Best Used For |
+|--------|-------------|---------------|
+| `git merge` | Creates a new merge commit combining both histories | Keeping a full commit history |
+| `git rebase` | Moves local commits to start after the latest remote commit | Keeping commit history linear |
+
+Using `git pull --rebase` avoids unnecessary merge commits and makes the history cleaner.
+
+## Step 3: Push Your Changes
+After rebasing, your local repository is now updated with the latest remote changes. You can now safely push your changes:
+
+```bash
+git push origin master
+```
