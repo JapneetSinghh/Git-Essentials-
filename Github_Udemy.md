@@ -255,3 +255,204 @@ git log --graph --oneline --all
 - Combine options for more specific outputs (e.g., `git log --oneline --author="John" -n 5`)
 - The most recent commits appear first in the log
 - The commit hash can be used to reference specific commits in other Git commands
+
+
+# How to Create a New Git Repository
+
+## Steps to Create a New Repository on GitHub
+
+1. **Login to GitHub**
+   - Go to [GitHub](https://github.com) and log in to your account
+
+2. **Create New Repository**
+   - Click on the **New** button to create a new repository
+   - Enter the repository name, e.g., `Git Essentials`
+   - Choose whether the repository is **public** or **private**
+   - Do not select **Add README** (you can add it later manually)
+   - Click **Create Repository**
+
+3. **Get the Repository URL**
+   - After creating the repository, GitHub will show you the SSH or HTTPS URL
+   - Choose SSH if you have SSH configured; otherwise, use HTTPS
+
+## Local Repository Setup
+First select the directory you want to push to github. Select it in terminal. cd "path/to/directory". Then follow the commands...
+
+
+1. **Initialize a Git repository** on your local machine. 
+   ```bash
+   git init
+   ```
+
+2. **Create a README file**:
+   ```bash
+   echo "# Git-Essentials-" >> README.md
+   ```
+
+3. **Stage and Commit the files**:
+   ```bash
+   git add README.md
+   git commit -m "first commit"
+   ```
+
+4. **Add the remote origin**:
+   Replace the URL with your GitHub repository URL (SSH or HTTPS):
+   ```bash
+   git remote add origin git@github.com:JapneetSinghh/Git-Essentials-.git
+   ```
+
+5. **Push the code to GitHub**:
+   Push the changes to GitHub's `master` branch (or `main` if that's your default):
+   ```bash
+   git push -u origin master
+   ```
+
+   If it's main:
+  ```bash
+   git push -u origin main
+   ```
+## Complete Example
+
+Here's the complete sequence of commands:
+
+```bash
+echo "# Git-Essentials-" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin git@github.com:JapneetSinghh/Git-Essentials-.git
+git push -u origin master
+```
+
+# How to Create a New Git Repository and Push Code to GitHub
+
+### Steps to Create a New Repository on GitHub:
+
+1. **Login to GitHub**: Go to [GitHub](https://github.com) and log in to your account.
+2. **Create New Repository**:
+   - Click on the **New** button to create a new repository.
+   - Enter the repository name, e.g., `Git Essentials`.
+   - Choose whether the repository is **public** or **private**.
+   - Do not select **Add README** (you can add it later manually).
+   - Click **Create Repository**.
+
+3. **Get the Repository URL**: After creating the repository, GitHub will show you the SSH or HTTPS URL to clone the repository. Choose SSH if you have SSH configured; otherwise, use HTTPS.
+
+### Local Repository Setup:
+
+1. **Initialize a Git repository** on your local machine:
+   ```bash
+   git init
+
+
+# How to Create a New Git Repository and Push Code to GitHub
+
+## Initial Setup
+
+### Steps to Create a New Repository on GitHub
+
+1. **Login to GitHub**
+   - Go to [GitHub](https://github.com) and log in to your account
+
+2. **Create New Repository**
+   - Click on the **New** button to create a new repository
+   - Enter the repository name, e.g., Git Essentials
+   - Choose whether the repository is **public** or **private**
+   - Do not select **Add README** (you can add it later manually)
+   - Click **Create Repository**
+
+3. **Get the Repository URL**
+   - After creating the repository, GitHub will show you the SSH or HTTPS URL
+   - Choose SSH if you have SSH configured; otherwise, use HTTPS
+
+### Local Repository Setup
+
+1. **Initialize a Git repository** on your local machine:
+   ```bash
+   git init
+   ```
+
+2. **Create a README file**:
+   ```bash
+   echo "# Git-Essentials-" >> README.md
+   ```
+
+3. **Stage and Commit the files**:
+   ```bash
+   git add README.md
+   git commit -m "first commit"
+   ```
+
+4. **Add the remote origin**:
+   ```bash
+   git remote add origin git@github.com:JapneetSinghh/Git-Essentials-.git
+   ```
+
+5. **Push the code to GitHub**:
+   If you see an error related to the branch name (e.g., `main` or `master`), ensure you're using the correct branch name. After running `git init`, Git will indicate which branch you're on (`main` or `master`).
+   
+   * If it's `master`:
+     ```bash
+     git push -u origin master
+     ```
+   * If it's `main`:
+     ```bash
+     git push -u origin main
+     ```
+
+## Making Changes and Pushing to GitHub Again
+
+After pushing your local code to GitHub, you can make changes to the files and push the updates to GitHub.
+
+1. **Check the status of your files**
+   Navigate to your repository's directory and run:
+   ```bash
+   git status
+   ```
+   Any newly created or modified files will be shown in **red** (unstaged changes).
+
+2. **Stage the changes**
+   Stage all the changes (new and modified files) with:
+   ```bash
+   git add -A
+   ```
+
+3. **Check the status again**
+   Run git status again:
+   ```bash
+   git status
+   ```
+   The files that were newly created or modified will now be in **green** (staged changes, ready to commit).
+
+4. **Commit the changes**
+   Commit the staged changes with a message:
+   ```bash
+   git commit -m "Second commit successful"
+   ```
+
+5. **Push the changes to GitHub**
+   Push the changes to your GitHub repository.
+   
+   If you're using the `master` branch:
+   ```bash
+   git push -u origin master
+   ```
+   
+   Or, if you're using the `main` branch:
+   ```bash
+   git push -u origin main
+   ```
+
+## Complete Example of Making Changes
+
+Here's the complete sequence of commands for making and pushing changes:
+
+```bash
+git status                                 # Check the status of changes
+git add -A                                # Stage all changes
+git status                                # Verify staged changes (files in green)
+git commit -m "Second commit successful"   # Commit the changes
+git push -u origin master                 # Or 'git push -u origin main' depending on your branch
+```
+
+You have now successfully pushed changes to GitHub and can continue making updates as needed.
