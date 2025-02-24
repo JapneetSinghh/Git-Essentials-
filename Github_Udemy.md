@@ -1154,3 +1154,199 @@ This approach ensures minimal disruption while maintaining progress.
 
 ---
 
+# Git Commands Reference Guide
+
+## Git Stash: Save and Restore Uncommitted Changes
+
+### What is `git stash`?
+`git stash` temporarily saves uncommitted changes, allowing you to switch branches or pull updates without committing unfinished work. It helps prevent conflicts when changing branches.
+
+### Scenario: Switching Branches with Uncommitted Changes
+
+#### Problem
+You tried to switch from an older commit back to `master`, but Git prevented it because of uncommitted changes:
+
+```bash
+git checkout master
+```
+
+**Error:**
+```bash
+error: Your local changes to the following files would be overwritten by checkout:
+.DS_Store
+Github_Udemy.md
+Please commit your changes or stash them before you switch branches.
+Aborting
+```
+
+#### Solution: Using `git stash`
+To temporarily save your changes, run:
+
+```bash
+git stash
+```
+
+Now you can switch branches without issues:
+
+```bash
+git checkout master # or git switch master
+```
+
+### Restoring Stashed Changes
+Once you're back on the correct branch, restore your saved changes with:
+
+```bash
+git stash pop # Applies and removes the last stash
+```
+
+If you want to keep the stash but still apply the changes:
+
+```bash
+git stash apply # Applies the stash without deleting it
+```
+
+### Practical Use Cases of `git stash`
+1. **Switching branches with uncommitted work**
+   * Saves changes temporarily so you can change branches.
+2. **Pulling latest updates without committing**
+   * Run `git stash`, then `git pull origin master`, then restore changes.
+3. **Experimenting without committing**
+   * Save work-in-progress changes and restore later.
+
+## Git Diff: Viewing Changes in Git
+
+### What is `git diff`?
+`git diff` shows the differences between changes in your working directory, staging area, and commits. It helps track modifications before committing.
+
+### Basic Usage
+1️⃣ **See Unstaged Changes (Working Directory vs. Last Commit)**
+```bash
+git diff
+```
+* Shows modifications in files **not staged** for commit.
+* Useful before staging files.
+
+2️⃣ **See Staged Changes (Ready for Commit)**
+```bash
+git diff --staged
+```
+or
+```bash
+git diff --cached
+```
+* Shows changes that have been added (`git add`) but not committed yet.
+
+3️⃣ **See Changes Between Commits**
+```bash
+git diff commit1 commit2
+```
+Example:
+```bash
+git diff 5dbd610 255c4b4
+```
+* Compares the differences between two commits.
+
+4️⃣ **See Changes in a Specific File**
+```bash
+git diff filename
+```
+Example:
+```bash
+git diff README.md
+```
+* Shows modifications in a single file.
+
+5️⃣ **See Changes Between Local and Remote Repo**
+```bash
+git diff origin/master
+```
+* Checks differences between your local branch and the remote master branch.
+
+### Summary of `git diff` Commands
+
+| Command | Purpose |
+|---------|---------|
+| `git diff` | Show unstaged changes |
+| `git diff --staged` | Show staged changes ready for commit |
+| `git diff commit1 commit2` | Compare changes between two commits |
+| `git diff filename` | Show changes in a specific file |
+| `git diff origin/master` | Compare local branch with remote master |
+
+Use `git diff` to track changes efficiently before committing! 🚀
+
+## Git Ignore (`.gitignore`) - Excluding Files from Git Tracking
+
+### What is `.gitignore`?
+The `.gitignore` file tells Git **which files and directories to ignore** from version control. It prevents unnecessary or sensitive files from being committed, such as:
+* Logs (`.log` files)
+* Compiled binaries (`.exe`, `.class`)
+* Environment variables (`.env`)
+* Temporary files (`.tmp`, `.DS_Store`)
+* Dependency folders (`node_modules/`, `vendor/`)
+
+### Example `.gitignore` File
+
+```bash
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore log files
+*.log
+
+# Ignore compiled binaries
+*.exe
+*.class
+
+# Ignore environment variables
+.env
+
+# Ignore dependency folders
+node_modules/
+vendor/
+```
+
+## Creating Git Aliases to Save Time
+
+### Why Use Git Aliases?
+Git aliases help **shorten long commands** by allowing you to assign custom shortcuts for frequently used Git commands.
+
+### How to Create a Git Alias
+1. Open your **global Git configuration file** (`.gitconfig`):
+
+   **For Mac/Linux**:
+   ```bash
+   code ~/.gitconfig # Open in VS Code
+   nano ~/.gitconfig # Open in Nano editor
+   ```
+   
+   **For Windows**:
+   ```powershell
+   notepad C:\Users\YourUsername\.gitconfig
+   ```
+
+2. Add aliases inside the `[alias]` section:
+   ```ini
+   [alias]
+     st = status
+     co = checkout
+     lgfav = log --oneline --decorate --graph --all
+     lg = log --topo-order --all --graph --date=local --pretty=format:'%C(green)%h%C(reset) %><(55,trunc)%s%C(red)%d%C(reset) %C(blue)[%an]%C(reset) %C(yellow)%ad%C(reset)%n'
+   ```
+
+3. **Save the file** and exit the editor.
+
+### Using the Aliases
+Now, instead of typing long commands, you can simply use:
+```bash
+git st      # Short for git status
+git co      # Short for git checkout
+git lgfav   # Short for git log --oneline --decorate --graph --all
+git lg      # Custom detailed Git log format
+```
+
+### Checking Existing Aliases
+To see all configured aliases, run:
+```bash
+git config --global --list | grep alias
+```
