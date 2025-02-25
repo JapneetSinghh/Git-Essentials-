@@ -1,5 +1,5 @@
 line 1 added at github
 line 2 added at github
-line 3 added at github
+line three added at github (edited locally for causing a conflict)
 line 4 added at github
 line 5 added at github
