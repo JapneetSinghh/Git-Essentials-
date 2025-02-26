@@ -1,6 +1,10 @@
 Rebase conflict from rebase branch 1
-Rebase conflict from rebase branch 2
-Rebase conflict from rebase branch 3
 Rebase conflict from rebase branch 4
 Rebase conflict from rebase branch 5
-Rebase conflict from rebase branch 6
+Rebase conflict from master branch 2
+Rebase conflict from master branch 3
+Rebase conflict from master branch 5
+Rebase conflict from master branch 6
+
+
+Some non conflicting content
