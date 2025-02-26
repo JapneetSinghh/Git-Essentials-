@@ -1560,4 +1560,228 @@ dd9fb21 Merge pull request #3 from JapneetSinghh/Different-Folder-Mac
 | `git reset --hard` | ✅ Yes | ❌ No | ❌ No | Start fresh by removing all local commits and changes permanently. |
 
 
-delelel
+# How to Delete a Commit Even After It Is Pushed  
+
+Sometimes, we **accidentally push a commit** that we later realize should not be in the repository. In such cases, we can **delete the commit permanently** using `git reset` and `git push --force`.  
+
+---
+
+## **Creating a Commit (Example Scenario)**
+First, let's create a commit that we want to delete:
+
+```bash
+git commit -m "I will delete this commit"
+```
+
+Output:
+
+```
+[master 1f16d29] I will delete this commit
+1 file changed, 5 insertions(+), 1 deletion(-)
+```
+
+Now, push the commit to GitHub:
+
+```bash
+git push origin master
+```
+
+Output:
+
+```
+To github.com:JapneetSinghh/Git-Essentials-.git
+7f55a94..1f16d29 master -> master
+```
+
+Check commit history:
+
+```bash
+git log --oneline
+```
+
+Example output:
+
+```
+1f16d29 (HEAD -> master, origin/master) I will delete this commit
+7f55a94 Hard Reset
+c67e451 Soft reset
+34b55ce Updating this commit name using git commit --amend
+```
+
+**Now, we need to delete** `1f16d29` permanently!
+
+## **Deleting the Last Pushed Commit (Using Hard Reset)**
+
+### **Step 1: Reset to the Previous Commit**
+To **delete the last commit and remove its changes**, run:
+
+```bash
+git reset --hard 7f55a94
+```
+
+This moves `HEAD` back to `7f55a94`, **removing commit** `1f16d29` and its changes completely.
+
+### **Step 2: Force Push the Reset**
+Since we already pushed `1f16d29` to GitHub, we need to **force push** the reset:
+
+```bash
+git push origin master --force
+```
+
+**Warning:**
+* `--force` will **overwrite history on GitHub**, so be careful.
+* If working in a **team**, ensure that no one else has pulled the commit before doing this.
+
+## **Verifying That the Commit is Deleted**
+Now, check the commit history:
+
+```bash
+git log --oneline
+```
+
+Example output:
+
+```
+7f55a94 (HEAD -> master) Hard Reset
+c67e451 Soft reset
+34b55ce Updating this commit name using git commit --amend
+```
+
+**The commit** `1f16d29` is now gone!
+
+## **Alternative: Undo a Commit Without Deleting Changes**
+If you want to **undo a commit but keep the changes**, use:
+
+```bash
+git reset --soft HEAD~1
+git push origin master --force
+```
+
+This will **remove the commit** but keep the files staged.
+
+
+# Git Revert: Undoing Commits Safely  
+
+## **What is `git revert`?**  
+`git revert` is a **safe way to undo a commit** by creating a **new commit that reverses changes** from a previous commit. Unlike `git reset`, it **does not remove commits from history**, making it ideal for **team collaboration** and shared repositories.  
+
+---
+
+## **When to Use `git revert`?**  
+- When you **want to undo a commit without rewriting Git history**.  
+- When working in **a shared repository** and need to **preserve commit history**.  
+- When a **mistake was committed and pushed**, and you need to reverse it.  
+- When you **want to undo a specific commit** without affecting later commits.  
+
+---
+
+## **What to Take Care of?**  
+- `git revert` **does not delete commits**, it creates **a new commit that negates changes**.  
+- If the commit you're reverting **affects multiple files**, you may need to manually resolve conflicts.  
+- If you revert a commit that was **already pushed**, you still need to `git push` the new revert commit.  
+
+---
+
+## **Usage Examples**  
+
+### **Reverting the Last Commit**
+If the most recent commit (`HEAD`) is incorrect, **revert it**:
+```bash
+git revert HEAD
+```
+
+This opens a text editor (Nano or Vim) to confirm the revert commit message.
+* **Press** `CTRL + X → Y → Enter` (Nano) or `:wq` (Vim) to save and exit.
+* A **new commit is created that undoes the previous commit**.
+
+**Before Revert** (`git log --oneline`):
+
+```
+abc1234 (HEAD -> master) Bad commit ❌
+def5678 Fixed login issue
+ghi9101 Added README
+```
+
+**After Revert** (`git log --oneline`):
+
+```
+xyz9999 (HEAD -> master) Revert "Bad commit"
+abc1234 Bad commit
+def5678 Fixed login issue
+```
+
+**Commit is undone without removing history!**
+
+### **Reverting a Specific Commit**
+To **undo a commit that is not the latest one**, find its hash:
+
+```bash
+git log --oneline
+```
+
+Example output:
+
+```
+abc1234 Bad commit ❌ (We want to undo this)
+def5678 Fixed login issue
+ghi9101 Added README
+```
+
+Run:
+
+```bash
+git revert abc1234
+```
+
+This **reverts only that commit**, leaving the rest of the commits unchanged.
+
+### **Reverting Multiple Commits**
+To **undo multiple commits**, use:
+
+```bash
+git revert HEAD~3..HEAD
+```
+
+This reverts the last **three commits separately**.
+
+To **undo multiple commits in one revert commit**, use:
+
+```bash
+git revert --no-commit HEAD~3..HEAD
+git commit -m "Reverted last 3 commits"
+```
+
+### **Handling Revert Conflicts**
+If `git revert` causes conflicts:
+1. **Fix conflicts manually** in affected files.
+2. **Stage the fixed files**:
+
+```bash
+git add .
+```
+
+3. **Continue the revert**:
+
+```bash
+git revert --continue
+```
+
+### **Reverting a Commit That Was Pushed**
+If the commit is **already pushed to GitHub**, use:
+
+```bash
+git revert HEAD
+git push origin master
+```
+
+This **safely updates the repository without rewriting history**.
+
+## **Comparison: `git revert` vs. `git reset`**
+
+| Feature | `git revert` | `git reset` |
+|---------|-------------|------------|
+| **Purpose** | Creates a new commit that undoes changes | Moves HEAD back to a previous commit |
+| **Deletes Commit?** | No (keeps history intact) | Yes (removes commits) |
+| **Safe for Teams?** | Yes | No (`--hard` is destructive) |
+| **Requires Force Push?** | No | Yes (`git push --force`) |
+| **Reverts a Specific Commit?** | Yes | No, resets everything after that commit |
