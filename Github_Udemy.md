@@ -1350,3 +1350,130 @@ To see all configured aliases, run:
 ```bash
 git config --global --list | grep alias
 ```
+
+
+# Changing Commit Message in Git
+
+Many times, we make mistakes while committing changes and write an incorrect commit message.
+
+For example:
+```bash
+git commit -m "INCORRECT COMMIT MESSAGE"
+
+use git log --oneline  # see the current commit message
+```
+
+## Editing the Commit Message
+To edit the commit message, use:
+
+```bash
+git commit --amend
+```
+
+This will open the **Vim** or **Nano** text editor in the terminal.
+
+### Editing in Vim
+If **Vim** opens:
+1. Press `i` to enter **Insert Mode**.
+2. Update the commit message.
+3. Press `Esc` to exit **Insert Mode**.
+4. Type `:wq` and press **Enter** to save and exit.
+   * If you get an error with `:wq`, use `:wq!` to force save and exit.
+
+### Switching to Nano (If Vim Doesn't Work)
+If **Vim** doesn't work or you prefer **Nano**, set Nano as the default editor:
+
+```bash
+git config --global core.editor "nano"
+```
+
+Now, running `git commit --amend` will open **Nano** instead.
+
+### Editing in Nano
+1. Update the commit message directly.
+2. Press `Ctrl + X` to exit.
+3. Press `Y` to confirm changes.
+4. Press **Enter** to save and close.
+
+Now try command 
+
+```bash 
+git log --oneline
+```
+
+It will show you the updated commit message
+
+
+# How to Reset a Commit in Git  
+
+Commits can be reset in **two ways**:  
+1. **Soft Reset**  
+2. **Hard Reset** 
+
+---
+
+## **1️⃣ Soft Reset**  
+
+### **What is a Soft Reset?**  
+A **soft reset** in Git moves the `HEAD` pointer to an earlier commit **without deleting any changes**. The changes remain **staged** (ready to commit again). It is useful when you want to update the last commit message or make minor changes before committing again.  
+
+**Common Use Cases:**  
+- Fixing an incorrect commit message  
+- Undoing a commit while keeping the changes staged  
+- Removing an accidental commit without losing work  
+
+---
+
+### **2️⃣ Example of a Soft Reset**  
+
+#### **Step 1: Create an Incorrect Commit**  
+```bash
+git commit -m "SOFT RESET COMMIT"
+```
+
+#### **Step 2: Check Commit History**
+```bash
+git log --oneline
+```
+
+Example output:
+```
+572d5f6 (HEAD -> master) SOFT RESET COMMIT
+34b55ce (origin/master) Updating this commit name using git commit --amend
+4200e94 Conflict resolved using rebase
+33baac7 Create merge-conflict.txt file for causing a conflict
+dd9fb21 Merge pull request #3 from JapneetSinghh/Different-Folder-Mac
+...
+```
+
+### **3️⃣ Deleting a Commit Without Losing Work (Soft Reset)**
+To **remove commit** `572d5f6` but keep the work:
+
+**Option 1: Using** `HEAD~1`
+```bash
+git reset --soft HEAD~1
+```
+This **moves** `HEAD` to the previous commit while keeping the changes **staged**.
+
+**Option 2: Using Commit Hash**
+```bash
+git reset --soft 572d5f6^
+```
+This does the same thing but explicitly targets commit `572d5f6`.
+
+### **4️⃣ Verify Commit is Deleted**
+Run:
+```bash
+git log --oneline
+```
+
+Now the commit should be gone:
+```
+34b55ce (HEAD -> master, origin/master) Updating this commit name using git commit --amend
+4200e94 Conflict resolved using rebase
+33baac7 Create merge-conflict.txt file for causing a conflict
+dd9fb21 Merge pull request #3 from JapneetSinghh/Different-Folder-Mac
+...
+```
+
+✅ **Commit is deleted, but work is still present in the staging area!**
