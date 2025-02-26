@@ -13,7 +13,7 @@
 
 ---
 
-# Git Installation and SSH Setup Guide
+# Ch 1: Git Installation and SSH Setup Guide
 
 ## Installing Git on Different Operating Systems
 
@@ -72,8 +72,8 @@ Expected output:
   email = your.email@example.com
 ```
 
-## SSH Key Setup
-
+# Ch 2: SSH Key Setup
+## 1. Generating SSH  Key
 1. Generate SSH key:
 ```bash
 ssh-keygen -o
@@ -101,7 +101,7 @@ Example public key format:
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAA[...]example japneetsingh@computer.local
 ```
 
-## Adding SSH Key to GitHub
+## 2. Adding SSH Key to GitHub
 
 1. Copy your public key (the output from `cat ~/.ssh/id_ed25519.pub`)
 2. Go to GitHub Settings
@@ -113,7 +113,7 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAA[...]example japneetsingh@computer.local
 
 You're now ready to use Git with GitHub securely via SSH!
 
-# What is Cloning in Git?
+# Ch 3: What is Cloning in Git?
 
 Cloning in Git means creating a copy of a remote repository (such as on GitHub) to your local machine. This allows you to work with the repository's files and history locally. When you clone a repository, you get all of the files, branches, and commit history from the remote repository.
 
@@ -179,7 +179,7 @@ cat README.md
 
 
 
-# Git Log Command Guide
+# Ch 4: Git Log Command Guide
 
 ## Overview
 The `git log` command is used to display the commit history of a Git repository. It shows the logs of all commits in the current branch, starting from the most recent commit.
@@ -257,7 +257,7 @@ git log --graph --oneline --all
 - The commit hash can be used to reference specific commits in other Git commands
 
 
-# How to Create a New Git Repository
+# Ch 5: How to Create a New Git Repository
 
 ## Steps to Create a New Repository on GitHub
 
@@ -324,28 +324,8 @@ git remote add origin git@github.com:JapneetSinghh/Git-Essentials-.git
 git push -u origin master
 ```
 
-# How to Create a New Git Repository and Push Code to GitHub
 
-### Steps to Create a New Repository on GitHub:
-
-1. **Login to GitHub**: Go to [GitHub](https://github.com) and log in to your account.
-2. **Create New Repository**:
-   - Click on the **New** button to create a new repository.
-   - Enter the repository name, e.g., `Git Essentials`.
-   - Choose whether the repository is **public** or **private**.
-   - Do not select **Add README** (you can add it later manually).
-   - Click **Create Repository**.
-
-3. **Get the Repository URL**: After creating the repository, GitHub will show you the SSH or HTTPS URL to clone the repository. Choose SSH if you have SSH configured; otherwise, use HTTPS.
-
-### Local Repository Setup:
-
-1. **Initialize a Git repository** on your local machine:
-   ```bash
-   git init
-
-
-# How to Create a New Git Repository and Push Code to GitHub
+# Ch 6: How to Create a New Git Repository and Push Code to GitHub
 
 ## Initial Setup
 
@@ -400,7 +380,7 @@ git push -u origin master
      git push -u origin main
      ```
 
-## Making Changes and Pushing to GitHub Again
+# Ch 7: Making Changes and Pushing to GitHub Repository
 
 After pushing your local code to GitHub, you can make changes to the files and push the updates to GitHub.
 
@@ -459,7 +439,7 @@ You have now successfully pushed changes to GitHub and can continue making updat
 
 
 
-# How to Undo and Unstage Changes in Git
+# Ch 8: How to Undo and Unstage Changes in Git
 
 ## Understanding Git Reset
 
@@ -555,7 +535,7 @@ no changes added to commit (use "git add" and/or "git commit -a")
 
 Remember that `git reset HEAD <file>` only unstages the file - it doesn't undo the actual deletion in your working directory. To completely undo the deletion, you'll need to use the `git restore` command as shown above.
 
-## Git can help to bring back a deleted file using git checkout command
+# Ch 9: Git can help to bring back a deleted file using git checkout command
 
 The git checkout command can be used to restore a deleted file from the last commit.
 
@@ -584,7 +564,7 @@ When you use `git checkout -- <file>` to bring back a deleted file, Git restores
 
 
 
-# Understanding Git Origins and Using git remote -v
+# Ch 10: Understanding Git Origins and Using git remote -v
 
 When doing your first commit, you use the following command to add a remote repository:
 
@@ -631,8 +611,8 @@ https://github.com/JapneetSinghh/Git-Essentials-.git
 
 
 
-
-# How to Create a New Branch in Git
+# Ch 11: Branching in git
+## How to Create a New Branch in Git
 
 ## 1. Check Existing Branches
 
@@ -864,7 +844,7 @@ Merge them into your local master branch.
 Update your local directory with the latest files and modifications.
 
 
-# Handling Push Rejections Due to Remote Changes
+# Ch 12: Handling Push Rejections Due to Remote Changes
 
 ## Scenario
 A teammate has added new files and committed changes to the `master` branch on GitHub.  
@@ -955,7 +935,7 @@ git push origin master
 
 
 
-# Checking If Your Local Repository Is Behind the Remote Repository
+# Ch 13: Checking If Your Local Repository Is Behind the Remote Repository
 
 When working in a team, it's essential to ensure your local repository is **up to date** with the remote repository on GitHub. Sometimes, teammates may push new commits, making your local branch outdated. You can check this using **Git log and Git fetch**.
 
@@ -1081,7 +1061,7 @@ git pull origin master --rebase
 
 
 
-## Revisiting an Older Commit and Creating a New Branch
+# Ch 14: Revisiting an Older Commit and Creating a New Branch
 
 ### **1. Finding the Older Commit**
 
@@ -1154,9 +1134,8 @@ This approach ensures minimal disruption while maintaining progress.
 
 ---
 
-# Git Commands Reference Guide
 
-## Git Stash: Save and Restore Uncommitted Changes
+# Ch 15: Git Stash: Save and Restore Uncommitted Changes
 
 ### What is `git stash`?
 `git stash` temporarily saves uncommitted changes, allowing you to switch branches or pull updates without committing unfinished work. It helps prevent conflicts when changing branches.
@@ -1306,7 +1285,7 @@ node_modules/
 vendor/
 ```
 
-## Creating Git Aliases to Save Time
+# Ch 16: Creating Git Aliases to Save Time
 
 ### Why Use Git Aliases?
 Git aliases help **shorten long commands** by allowing you to assign custom shortcuts for frequently used Git commands.
@@ -1352,7 +1331,7 @@ git config --global --list | grep alias
 ```
 
 
-# Changing Commit Message in Git
+# Ch 17: Changing Commit Message in Git
 
 Many times, we make mistakes while committing changes and write an incorrect commit message.
 
@@ -1404,7 +1383,7 @@ git log --oneline
 It will show you the updated commit message
 
 
-# How to Reset a Commit in Git  
+# Ch 18: How to Reset a Commit in Git  
 
 Commits can be reset in **two ways**:  
 1. **Soft Reset**  
@@ -1560,7 +1539,7 @@ dd9fb21 Merge pull request #3 from JapneetSinghh/Different-Folder-Mac
 | `git reset --hard` | ✅ Yes | ❌ No | ❌ No | Start fresh by removing all local commits and changes permanently. |
 
 
-# How to Delete a Commit Even After It Is Pushed  
+# Ch 19: How to Delete a Commit Even After It Is Pushed  
 
 Sometimes, we **accidentally push a commit** that we later realize should not be in the repository. In such cases, we can **delete the commit permanently** using `git reset` and `git push --force`.  
 
@@ -1660,7 +1639,7 @@ git push origin master --force
 This will **remove the commit** but keep the files staged.
 
 
-# Git Revert: Undoing Commits Safely  
+# Ch 20: Git Revert: Undoing Commits Safely  
 
 ## **What is `git revert`?**  
 `git revert` is a **safe way to undo a commit** by creating a **new commit that reverses changes** from a previous commit. Unlike `git reset`, it **does not remove commits from history**, making it ideal for **team collaboration** and shared repositories.  
@@ -1787,7 +1766,7 @@ This **safely updates the repository without rewriting history**.
 | **Reverts a Specific Commit?** | Yes | No, resets everything after that commit |
 
 
-# Understanding `git rebase` in Git 
+# Ch 21: Understanding `git rebase` in Git 
 
 ## **What is `git rebase`?** 
 `git rebase` is a Git command used to **move or replay commits on top of another branch**. Instead of merging branches (which creates a merge commit), `rebase` **rewrites commit history** by applying changes one by one on top of the latest commit of another branch. 
@@ -1952,7 +1931,7 @@ git rebase --abort
 ✅ **This resets your branch to the state before the rebase started.**
 
 
-# Git Stash: Save Work Without Committing  
+# Ch 22: Git Stash: Save Work Without Committing  
 
 ## **What is `git stash`?**  
 `git stash` temporarily saves **uncommitted changes** so you can switch branches without losing work.  
