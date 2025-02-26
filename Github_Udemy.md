@@ -1558,3 +1558,6 @@ dd9fb21 Merge pull request #3 from JapneetSinghh/Different-Folder-Mac
 |------------|------------------|----------------------|----------------------------------|-------------|
 | `git reset --soft` | ✅ Yes | ✅ Yes | ✅ Yes | Modify the last commit message or make small changes before recommitting. |
 | `git reset --hard` | ✅ Yes | ❌ No | ❌ No | Start fresh by removing all local commits and changes permanently. |
+
+
+delelel
