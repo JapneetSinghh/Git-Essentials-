@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 line 1 added at github
 line 2 added at github
 line three added at github
 line 4 added at github
 line 5 added at github
 
+=======
+Creating a merge conflict
+>>>>>>> 99cb87dec508bf025d2f3bc1a6cb8acb5b7d7397
