@@ -1785,3 +1785,243 @@ This **safely updates the repository without rewriting history**.
 | **Safe for Teams?** | Yes | No (`--hard` is destructive) |
 | **Requires Force Push?** | No | Yes (`git push --force`) |
 | **Reverts a Specific Commit?** | Yes | No, resets everything after that commit |
+
+
+# Understanding `git rebase` in Git 
+
+## **What is `git rebase`?** 
+`git rebase` is a Git command used to **move or replay commits on top of another branch**. Instead of merging branches (which creates a merge commit), `rebase` **rewrites commit history** by applying changes one by one on top of the latest commit of another branch. 
+
+--- 
+
+## **When to Use `git rebase`?** 
+
+✅ **Use `git rebase` when:** 
+- You want a **clean, linear commit history** (without unnecessary merge commits). 
+- You need to **update your feature branch with the latest changes from `main/master`** before merging. 
+- You are working **alone** and want to keep your commits tidy. 
+
+❌ **Avoid `git rebase` when:** 
+- You are working on a **shared branch** and others have already pulled your changes. 
+- You don't want to **rewrite commit history** (use `git merge` instead). 
+- Your branch is already merged or has important commits that should not be altered. 
+
+---
+
+# Fixing Rebase Conflicts in Git  
+
+## **What is Git Rebase?**  
+`git rebase` is a Git command used to **move or replay commits** on top of another branch. It helps in keeping a **linear commit history** by applying changes one by one instead of merging.
+
+### **Example: Before and After Rebasing**
+Before rebasing:
+
+```
+* 694afda Rebase conflict from master branch (HEAD -> master)
+| |
+* c785a54 Rebase Conflict (origin/rebase-branch, rebase-branch)
+|/
+|
+* 4af3773 Conflict resolved (origin/master)
+|\
+| |
+| * 99cb87d Create MergeConflcit.txt
+| |
+* | 873857b Causing a conflict
+|/
+|
+* 0839405 Updated Readme.md
+```
+
+After successful rebasing:
+
+```
+* cd89855 Rebase conflict from master branch (HEAD -> master)
+|
+* c785a54 Rebase Conflict (origin/rebase-branch, rebase-branch)
+|
+* 4af3773 Conflict resolved (origin/master)
+|\
+| |
+| * 99cb87d Create MergeConflcit.txt
+| |
+* | 873857b Causing a conflict
+|/
+|
+* 0839405 Updated Readme.md
+```
+
+✅ **History becomes linear, making commits easier to track!** 
+
+--- 
+
+## **How to Fix Rebase Conflicts** 
+
+### **1. Rebase the Master Branch Onto rebase-branch** 
+```bash
+git checkout master
+git rebase rebase-branch
+```
+
+🚨 **Error Message:**
+
+```
+Auto-merging Rebase-conflict.txt
+CONFLICT (add/add): Merge conflict in Rebase-conflict.txt
+error: could not apply 694afda... Rebase conflict from master branch
+```
+
+This happens because `Rebase-conflict.txt` exists in both branches with different changes.
+
+### **2. Check the Rebase Status**
+
+```bash
+git status
+```
+
+Output:
+
+```
+interactive rebase in progress; onto c785a54
+Last command done (1 command done):
+   pick 694afda Rebase conflict from master branch
+No commands remaining.
+You are currently rebasing branch 'master' on 'c785a54'.
+  (fix conflicts and then run "git rebase --continue")
+  (use "git rebase --skip" to skip this patch)
+  (use "git rebase --abort" to check out the original branch)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+        both added:      Rebase-conflict.txt
+```
+
+✅ **This tells us the conflict is in** `Rebase-conflict.txt`.
+
+### **3. Open the Conflicted File**
+
+```
+<<<<<<< HEAD
+Rebase conflict from master branch 1
+Rebase conflict from master branch 2
+Rebase conflict from master branch 3
+=======
+Rebase conflict from rebase branch 1
+Rebase conflict from rebase branch 4
+Rebase conflict from rebase branch 5
+>>>>>>> rebase-branch
+```
+
+* **Everything between** `<<<<<<< HEAD` and `=======` is from `master`.
+* **Everything between** `=======` and `>>>>>>> rebase-branch` is from `rebase-branch`.
+
+### **4. Resolve the Conflict Manually**
+Edit the file to keep the correct version and remove the conflict markers:
+
+```
+Rebase conflict from master branch 1
+Rebase conflict from master branch 2
+Rebase conflict from rebase branch 4
+Rebase conflict from rebase branch 5
+```
+
+### **5. Mark the Conflict as Resolved**
+
+```bash
+git add Rebase-conflict.txt
+git rebase --continue
+```
+
+✅ **If there are no more conflicts, the rebase completes successfully!**
+
+### **6. Verify the Rebase**
+
+```bash
+git log --oneline --graph --decorate --all
+```
+
+✅ The commit history is now rewritten with a clean linear structure.
+
+### **Alternative: If You Want to Abort the Rebase**
+If you want to **cancel the rebase** and return to the previous state:
+
+```bash
+git rebase --abort
+```
+
+✅ **This resets your branch to the state before the rebase started.**
+
+
+# Git Stash: Save Work Without Committing  
+
+## **What is `git stash`?**  
+`git stash` temporarily saves **uncommitted changes** so you can switch branches without losing work.  
+It **clears the working directory** while allowing you to reapply changes later.
+
+---
+
+## **When & Where to Use `git stash`?**  
+- When you need to **switch branches** but don't want to commit incomplete work.  
+- When working on **multiple features** and need to **pause** one.  
+- Before pulling updates to **avoid merge conflicts**.  
+
+Don't use it for **long-term storage**—commits are safer.
+
+---
+
+## **How to Use `git stash`**
+### **Save Your Work**
+```bash
+git stash
+```
+
+This **saves** all **uncommitted** changes.
+
+### **View Stashed Changes**
+```bash
+git stash list
+```
+
+Output:
+```
+stash@{0}: WIP on feature-branch: abc1234 Added new feature
+stash@{1}: WIP on master: xyz5678 Updated README
+```
+
+### **Reapply Stashed Changes**
+```bash
+git stash apply
+```
+Reapplies the **most recent stash** but **keeps it in the stash list**.
+
+```bash
+git stash pop
+```
+Reapplies the **most recent stash** and **removes it from the stash list**.
+
+### **Apply a Specific Stash**
+```bash
+git stash apply stash@{1}
+```
+Reapplies an **older stash**.
+
+### **Remove a Stash**
+```bash
+git stash drop stash@{0}
+```
+Deletes a specific stash.
+
+```bash
+git stash clear
+```
+**Removes all stashes**.
+
+### **Summary of Commands**
+```bash
+git stash            # Save uncommitted changes
+git stash list       # View saved stashes
+git stash apply      # Reapply most recent stash
+git stash pop        # Reapply & remove most recent stash
+git stash drop stash@{0}  # Delete a specific stash
+git stash clear      # Delete all stashes
+```
