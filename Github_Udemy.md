@@ -1477,3 +1477,84 @@ dd9fb21 Merge pull request #3 from JapneetSinghh/Different-Folder-Mac
 ```
 
 ✅ **Commit is deleted, but work is still present in the staging area!**
+
+
+# 2️⃣ Hard Reset in Git  
+
+## **What is a Hard Reset?**  
+A **hard reset** in Git moves `HEAD` to a previous commit and **permanently removes all changes** from the working directory and staging area.  
+
+### **When to Use It?**  
+- When you want to **completely delete** the last commit and its changes.  
+- When you want to **reset your repository** to a clean state.  
+- When you made a mistake and need a **fresh start**.  
+
+🚨 **Be Careful!**  
+- **Hard reset erases commits and cannot be undone easily**.  
+- If you already pushed the commit to GitHub, you may need to **force push** (`git push --force`).  
+
+---
+
+## **Step-by-Step Guide to Hard Reset**  
+
+### **1️⃣ Create a Dummy File and Commit It**  
+```bash
+echo "This is a test file" > dummy.txt
+git status  
+git add -A  
+git commit -m "HARD RESET THIS"  
+```
+
+### **2️⃣ Check Commit History**
+```bash
+git log --oneline
+```
+
+Example output:
+```
+33dae8a (HEAD -> master) Hard reset this commit # WILL HARD RESET THIS
+c67e451 (origin/master) Soft reset
+34b55ce Updating this commit name using git commit --amend
+4200e94 Conflict resolved using rebase
+33baac7 Create merge-conflict.txt file for causing a conflict
+dd9fb21 Merge pull request #3 from JapneetSinghh/Different-Folder-Mac
+......
+```
+
+### **3️⃣ Perform a Hard Reset**
+**Option 1: Reset to One Commit Before** (`HEAD~1`)
+```bash
+git reset --hard HEAD~1
+```
+This removes the last commit and deletes all associated changes.
+
+**Option 2: Reset to a Specific Commit (e.g.,** `33dae8a`)
+```bash
+git reset --hard 33dae8a
+```
+This resets the repository to `33dae8a` and removes all commits after it.
+
+### **4️⃣ Verify That the Reset Worked**
+Check commit history again:
+```bash
+git log --oneline
+```
+
+Now, `33dae8a` is **gone**, and `HEAD` moved back to `c67e451`:
+```
+c67e451 (HEAD -> master, origin/master) Soft reset
+34b55ce Updating this commit name using git commit --amend
+4200e94 Conflict resolved using rebase
+33baac7 Create merge-conflict.txt file for causing a conflict
+dd9fb21 Merge pull request #3 from JapneetSinghh/Different-Folder-Mac
+......
+```
+
+✅ **Commit and all new work are permanently deleted!**
+
+## **When to Use Hard Reset vs. Soft Reset?**
+
+| Reset Type | Removes Commits? | Keeps Staged Changes? | Keeps Working Directory Changes? | When to Use? |
+|------------|------------------|----------------------|----------------------------------|-------------|
+| `git reset --soft` | ✅ Yes | ✅ Yes | ✅ Yes | Modify the last commit message or make small changes before recommitting. |
+| `git reset --hard` | ✅ Yes | ❌ No | ❌ No | Start fresh by removing all local commits and changes permanently. |
