@@ -28,12 +28,12 @@
 - [Chapter 7: Making Changes and Pushing to GitHub Repository](#ch-7-making-changes-and-pushing-to-github-repository)
   - [Complete Example of Making Changes](#complete-example-of-making-changes)
 - [Chapter 8: How to Undo and Unstage Changes in Git](#ch-8-how-to-undo-and-unstage-changes-in-git)
-  - [Understanding Git Reset](#understanding-git-reset)
-  - [Scenario: Undoing a Staged Deletion](#scenario-undoing-a-staged-deletion)
-  - [Understanding the Output](#understanding-the-output)
+  - [Understanding Git Reset and undoing a deletion](#understanding-git-reset)
+ 
+
   - [Restoring a Deleted File](#restoring-a-deleted-file)
-  - [Complete Example with Terminal Output](#complete-example-with-terminal-output)
-  - [Quick Reference](#quick-reference)
+
+
 - [Chapter 9: Git can help to bring back a deleted file using git checkout command](#ch-9-git-can-help-to-bring-back-a-deleted-file-using-git-checkout-command)
   - [How `git checkout -- <file>` Restores a Deleted File](#how-git-checkout----file-restores-a-deleted-file)
 - [Chapter 10: Understanding Git Origins and Using git remote -v](#ch-10-understanding-git-origins-and-using-git-remote--v)
@@ -67,9 +67,11 @@
   - [2. Checking Out an Older Commit](#2-checking-out-an-older-commit)
   - [3. Creating a New Branch from an Older Commit](#3-creating-a-new-branch-from-an-older-commit)
   - [Why is This Useful?](#why-is-this-useful)
+
+
 - [Ch 15: Git Stash: Save and Restore Uncommitted Changes](#ch-15-git-stash-save-and-restore-uncommitted-changes)
   - [What is `git stash`?](#what-is-git-stash)
-  - [Scenario: Switching Branches with Uncommitted Changes](#scenario-switching-branches-with-uncommitted-changes)
+
   - [Restoring Stashed Changes](#restoring-stashed-changes)
   - [Practical Use Cases of `git stash`](#practical-use-cases-of-git-stash)
   - [Git Diff: Viewing Changes in Git](#git-diff-viewing-changes-in-git)
@@ -2102,8 +2104,6 @@ git stash apply      # Reapply most recent stash
 git stash pop        # Reapply & remove most recent stash
 git stash drop stash@{0}  # Delete a specific stash
 git stash clear      # Delete all stashes
-<<<<<<< HEAD
-=======
 ```# Complete Git Setup and Usage Guide
 ## By Japneet Singh
 
@@ -4114,5 +4114,4 @@ git stash apply      # Reapply most recent stash
 git stash pop        # Reapply & remove most recent stash
 git stash drop stash@{0}  # Delete a specific stash
 git stash clear      # Delete all stashes
->>>>>>> c2f5bfd (Added index in file)
 ```
