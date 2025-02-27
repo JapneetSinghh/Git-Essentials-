@@ -1,7 +1,6 @@
 # Complete Git Setup and Usage Guide
 ## By Japneet Singh
 
-# Git Installation and Setup Guide - Index
 
 ## Table of Contents
 - [Chapter 1: Git Installation and SSH Setup Guide](#ch-1-git-installation-and-ssh-setup-guide)
