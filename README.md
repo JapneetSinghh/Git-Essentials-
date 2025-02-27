@@ -50,12 +50,10 @@
   - [How to Pull Changes from the Master Branch](#how-to-pull-changes-from-the-master-branch)
 
 - [Ch 12: Handling Push Rejections Due to Remote Changes](#ch-12-handling-push-rejections-due-to-remote-changes)
-  - [Scenario](#scenario)
   - [Why Does This Happen?](#why-does-this-happen)
   - [Error: Push Rejected](#error-push-rejected)
-  - [Step 1: Pull the Latest Changes](#step-1-pull-the-latest-changes)
-  - [Step 2: Use Rebase to Fix the Issue](#step-2-use-rebase-to-fix-the-issue)
-  - [Step 3: Push Your Changes](#step-3-push-your-changes)
+  - [Steps: Pull the Latest Changes, Use Rebase to Fix the Issue, Push Your Changes](#step-1-pull-the-latest-changes)
+
 
 - [Ch 13: Checking If Your Local Repository Is Behind the Remote Repository](#ch-13-checking-if-your-local-repository-is-behind-the-remote-repository)
   - [1. Check Your Current Position in Git History](#1-check-your-current-position-in-git-history)
@@ -98,18 +96,15 @@
 
 - [Ch 20: Git Revert: Undoing Commits Safely](#ch-20-git-revert-undoing-commits-safely)
   - [What is `git revert`?](#what-is-git-revert)
-  - [When to Use `git revert`?](#when-to-use-git-revert)
-  - [What to Take Care of?](#what-to-take-care-of)
+  - [When to Use `git revert`? How to do it carefully?](#when-to-use-git-revert)
   - [Usage Examples](#usage-examples)
 
 - [Ch 21: Understanding `git rebase` in Git](#ch-21-understanding-git-rebase-in-git)
-  - [What is `git rebase`?](#what-is-git-rebase)
-  - [When to Use `git rebase`?](#when-to-use-git-rebase)
+  - [What is `git rebase`? When to use it?](#what-is-git-rebase)
   - [Fixing Rebase Conflicts in Git](#fixing-rebase-conflicts-in-git)
 
 - [Ch 22: Git Stash: Save Work Without Committing](#ch-22-git-stash-save-work-without-committing)
-  - [What is `git stash`?](#what-is-git-stash-1)
-  - [When & Where to Use `git stash`?](#when--where-to-use-git-stash)
+  - [What is `git stash`? When and where to use it?](#what-is-git-stash-1)
   - [How to Use `git stash`](#how-to-use-git-stash)  
 
 ---
